@@ -16,10 +16,10 @@ class Partida():
                                 suma += sum(ronda[i])
 
                         elif (i == 9):
-                            suma += sum(ronda[i]) #el lanzamiento 10 lo sume
+                            suma += sum(ronda[i]) #la ronda 10 lo sume
 
                         else:
-                            if (sum(ronda[9]) == 10 and ronda[9][0] != 10): #si el lanzamiento 10 es un semipleno, solo sumará el primer bolo del lanzamiento 11
+                            if (sum(ronda[9]) == 10 and ronda[9][0] != 10): #si la ronda 10 es un semipleno, solo sumará el primer bolo de la ronda 11
                                 suma += ronda[9+1][0]
                             else:
                                 suma += sum(ronda[i])
