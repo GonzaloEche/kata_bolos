@@ -49,13 +49,32 @@ class PartidoTennis(unittest.TestCase):
 
     def test_tenis_puntuacion_30_30(self):
         self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
         self.tenis.puntuacion_jugador_dos()
-        self.la_puntuacion_es("iguales")
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es("30-30")
+
+    def test_tenis_puntuacion_40_40(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es("40-40")
+
+    def test_tenis_puntuacion_40_15(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es("40-15")
+
+    #def la_puntuacion_es(self, J1,J2):
+     #   self.assertEqual(self.tenis.puntuacion(), )
 
     def la_puntuacion_es(self, tiene_que_ser):
-        self.assertEqual(self.tenis.puntuacion(), tiene_que_ser)
-
-
+      self.assertEqual(self.tenis.puntuacion(), tiene_que_ser)
 
 
 

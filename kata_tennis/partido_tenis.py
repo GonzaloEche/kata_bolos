@@ -9,7 +9,12 @@ class Tenis(object):
 
         if (self.la_puntuacion_jugador_uno_es == 1 and self.la_puntuacion_jugador_dos_es == 1):
             return "15-15"
-
+        if (self.la_puntuacion_jugador_uno_es == 2 and self.la_puntuacion_jugador_dos_es == 2):
+            return "30-30"
+        if (self.la_puntuacion_jugador_uno_es == 3 and self.la_puntuacion_jugador_dos_es == 3):
+            return "40-40"
+        if (self.la_puntuacion_jugador_uno_es == 3 and self.la_puntuacion_jugador_dos_es == 1):
+            return "40-15"
 
         #jugador 1
         if self.la_puntuacion_jugador_uno_es == 1:
