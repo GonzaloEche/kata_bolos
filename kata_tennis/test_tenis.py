@@ -143,6 +143,29 @@ class PartidoTennis(unittest.TestCase):
         self.los_juegos_son(6,0)
         self.sets_son(1,0)
 
+    def test_tie_break(self):
+        self.tenis.juegosJ1 = 6
+        self.tenis.juegosJ2 = 6
+        self.los_juegos_son(6, 6)
+        self.sets_son(0, 0)
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es("W", 6)
+        self.los_juegos_son(7, 6)
+        self.sets_son(1, 0)
+
 
     def la_puntuacion_es(self, J1,J2):
        self.assertEqual(self.tenis.puntuacionJ1(), J1) and self.assertEqual(self.tenis.puntuacionJ2(), J2)
