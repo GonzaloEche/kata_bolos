@@ -39,7 +39,9 @@ class Tenis(object):
             return 40
         if self.la_puntuacion_jugador_uno_es == 5:
             return "ADV"
-        if self.la_puntuacion_jugador_uno_es == (4 | 7):
+        if self.la_puntuacion_jugador_uno_es == 4:
+            return "W"
+        if self.la_puntuacion_jugador_uno_es == 7:
             return "W"
         return 0
 
@@ -52,7 +54,9 @@ class Tenis(object):
             return 40
         if self.la_puntuacion_jugador_uno_es == 5:
             return "ADV"
-        if self.la_puntuacion_jugador_dos_es == (4 | 7):
+        if self.la_puntuacion_jugador_dos_es == 4:
+            return "W"
+        if self.la_puntuacion_jugador_dos_es == 7:
             return "W"
         return 0
 
