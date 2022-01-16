@@ -1,3 +1,6 @@
+class Excepcion(Exception):
+    pass
+
 class Partida():
     def calcularResultado(self,ronda):
         suma = 0
@@ -26,4 +29,4 @@ class Partida():
             return suma
 
         except:
-            print("error")
+            raise Excepcion

@@ -100,6 +100,12 @@ class PartidaBolos(unittest.TestCase):
         resultado = partida.calcularResultado(ronda)
         self.assertEqual(resultado, 15)
 
+    def test_partida_con_ronda_extra4(self):
+        partida = Partida()
+        ronda = [(10, 0), (10, 0), (10, 0), (10, 0), (10, 0), (2, 1), (0, 0), (0, 0), (0, 0), (5, 5), (4, 5)]
+        resultado = partida.calcularResultado(ronda)
+        self.assertEqual(resultado, 30 + 30 + 30 + 22 + 13 + 3 + 14)
+
     def test_partida_con_ronda_extra_3_strikes_finales(self):
         partida = Partida()
         ronda = [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (10, 0), (10, 0), (10, 0)]
@@ -132,3 +138,5 @@ class PartidaBolos(unittest.TestCase):
                 #30        30(60)   30(90)  30(120)  30(150)  30(180)  30(210)  30(240)  30(270)  10-->10   10       9
         resultado = partida.calcularResultado(ronda)
         self.assertEqual(resultado, 299)
+
+
