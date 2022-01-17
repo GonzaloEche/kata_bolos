@@ -1,0 +1,790 @@
+CATA DE TENIS:
+
+
+TEST1: FALLA
+
+	TEST
+
+import unittest;
+
+from partido_tennis import Tenis
+
+class PartidoTennis(unittest.TestCase):
+    def test_tenis_puntuacion_juego_0(self):
+        tenis = Tenis()
+        self.assertEqual(tenis.puntuacion(), "0")
+
+
+	CODIGO
+
+class Tenis(object):
+    def puntuacion(self):
+        pass
+
+
+
+
+
+
+
+TEST1: OK
+
+	TEST
+Se deja sin tocar
+
+
+	CODIGO
+
+class Tenis(object):
+    def puntuacion(self):
+        return "0"
+
+
+
+
+
+
+REFACTOR:
+
+import unittest;
+
+from partido_tenis import Tenis
+
+class PartidoTennis(unittest.TestCase):
+    def setUp(self):
+        self.tenis = Tenis()
+
+    def test_tenis_puntuacion_juego_0(self):
+        self.la_puntuacion_es("0")
+
+    def la_puntuacion_es(self, tiene_que_ser):
+        self.assertEqual(self.tenis.puntuacion(), tiene_que_ser)
+
+
+
+
+
+
+TEST2: FALLA
+
+	TEST
+
+    def test_tenis_puntuacion_juego_15_jugador1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es("15")
+
+
+
+	CODIGO
+
+Dejo el codigo sin tocar
+
+
+
+
+
+
+TEST 2:OK
+
+	TEST
+sin tocar
+
+
+	
+	CODIGO
+
+class Tenis(object):
+    def __init__(self):
+        self.la_puntuacion_jugador_uno_es = 0
+
+    def puntuacion(self):
+        if self.la_puntuacion_jugador_uno_es == 1:
+            return "15"
+        return "0"
+
+    def puntuacion_jugador_uno(self):
+        self.la_puntuacion_jugador_uno_es += 1
+
+
+
+
+
+TEST3:FALLA
+
+	TEST
+
+    def test_tenis_puntuacion_juego_30_jugador1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es("30")
+
+
+
+
+TEST3:OK
+
+	CODIGO
+
+class Tenis(object):
+    def __init__(self):
+        self.la_puntuacion_jugador_uno_es = 0
+
+    def puntuacion(self):
+        if self.la_puntuacion_jugador_uno_es == 1:
+            return "15"
+        if self.la_puntuacion_jugador_uno_es == 2:
+            return "30"
+        return "0"
+
+    def puntuacion_jugador_uno(self):
+        self.la_puntuacion_jugador_uno_es += 1
+
+
+
+
+TEST4:FALLA
+
+	TEST
+
+    def test_tenis_puntuacion_juego_40_jugador1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es("40")
+
+
+
+TEST4:OK
+
+	CODIGO
+
+class Tenis(object):
+    def __init__(self):
+        self.la_puntuacion_jugador_uno_es = 0
+
+    def puntuacion(self):
+
+        if self.la_puntuacion_jugador_uno_es == 1:
+            return "15"
+        if self.la_puntuacion_jugador_uno_es == 2:
+            return "30"
+        if self.la_puntuacion_jugador_uno_es == 3:
+            return "40"
+        return "0"
+
+    def puntuacion_jugador_uno(self):
+        self.la_puntuacion_jugador_uno_es += 1
+
+
+
+
+
+TEST 5:INCORRECTO------> JUGADOR 2
+	
+	TEST
+
+    def test_tenis_puntuacion_juego_15_jugador2(self):
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es("15")
+
+
+TEST5:OK
+
+	CÓDIGO
+class Tenis(object):
+    def __init__(self):
+        self.la_puntuacion_jugador_uno_es = 0
+        self.la_puntuacion_jugador_dos_es = 0
+
+    def puntuacion(self):
+
+        if self.la_puntuacion_jugador_uno_es == 1:
+            return "15"
+        if self.la_puntuacion_jugador_uno_es == 2:
+            return "30"
+        if self.la_puntuacion_jugador_uno_es == 3:
+            return "40"
+
+
+        if self.la_puntuacion_jugador_dos_es == 1:
+            return "15"
+        return "0"
+
+    def puntuacion_jugador_uno(self):
+        self.la_puntuacion_jugador_uno_es += 1
+
+
+    def puntuacion_jugador_dos(self):
+        self.la_puntuacion_jugador_dos_es += 1
+
+
+
+
+TEST6: FALLA---->15-15
+
+	TEST
+
+    def test_tenis_puntuacion_15_15(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es("15-15")
+
+
+
+
+TEST6: OK
+
+	CODIGO
+	
+class Tenis(object):
+    def __init__(self):
+        self.la_puntuacion_jugador_uno_es = 0
+        self.la_puntuacion_jugador_dos_es = 0
+
+    def puntuacion(self):
+
+        #ambos jugadores
+        if self.la_puntuacion_jugador_uno_es == 1 and self.la_puntuacion_jugador_dos_es == 1:
+            return "15-15"
+
+        #jugador 1
+        if self.la_puntuacion_jugador_uno_es == 1:
+            return "15"
+        if self.la_puntuacion_jugador_uno_es == 2:
+            return "30"
+        if self.la_puntuacion_jugador_uno_es == 3:
+            return "40"
+
+        #jugador 2
+        if self.la_puntuacion_jugador_dos_es == 1:
+            return "15"
+        if self.la_puntuacion_jugador_dos_es == 2:
+            return "30"
+        if self.la_puntuacion_jugador_dos_es == 3:
+            return "40"
+
+        return "0"
+
+    def puntuacion_jugador_uno(self):
+        self.la_puntuacion_jugador_uno_es += 1
+
+
+    def puntuacion_jugador_dos(self):
+        self.la_puntuacion_jugador_dos_es += 1
+
+
+
+
+
+HASTA EL MOMENTO IRIA:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+	CODIGO:
+
+class Tenis(object):
+    def __init__(self):
+        self.la_puntuacion_jugador_uno_es = 0
+        self.la_puntuacion_jugador_dos_es = 0
+
+    def puntuacion(self):
+
+        #ambos jugadores
+
+        if (self.la_puntuacion_jugador_uno_es == 1 and self.la_puntuacion_jugador_dos_es == 1):
+            return "15-15"
+        if (self.la_puntuacion_jugador_uno_es == 2 and self.la_puntuacion_jugador_dos_es == 2):
+            return "30-30"
+        if (self.la_puntuacion_jugador_uno_es == 3 and self.la_puntuacion_jugador_dos_es == 3):
+            return "40-40"
+        if (self.la_puntuacion_jugador_uno_es == 3 and self.la_puntuacion_jugador_dos_es == 1):
+            return "40-15"
+
+        #jugador 1
+        if self.la_puntuacion_jugador_uno_es == 1:
+            return "15"
+        if self.la_puntuacion_jugador_uno_es == 2:
+            return "30"
+        if self.la_puntuacion_jugador_uno_es == 3:
+            return "40"
+
+        #jugador 2
+        if self.la_puntuacion_jugador_dos_es == 1:
+            return "15"
+        if self.la_puntuacion_jugador_dos_es == 2:
+            return "30"
+        if self.la_puntuacion_jugador_dos_es == 3:
+            return "40"
+
+        return "0"
+
+    def puntuacion_jugador_uno(self):
+        self.la_puntuacion_jugador_uno_es += 1
+
+
+    def puntuacion_jugador_dos(self):
+        self.la_puntuacion_jugador_dos_es += 1
+
+
+
+
+	TEST
+
+import unittest;
+
+from partido_tenis import Tenis
+
+class PartidoTennis(unittest.TestCase):
+    def setUp(self):
+        self.tenis = Tenis()
+
+    def test_tenis_puntuacion_juego_0(self):
+        self.la_puntuacion_es("0")
+
+    def test_tenis_puntuacion_juego_15_jugador1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es("15")
+
+    def test_tenis_puntuacion_juego_30_jugador1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es("30")
+
+    def test_tenis_puntuacion_juego_40_jugador1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es("40")
+
+
+
+    def test_tenis_puntuacion_juego_15_jugador2(self):
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es("15")
+
+    def test_tenis_puntuacion_juego_30_jugador2(self):
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es("30")
+
+    def test_tenis_puntuacion_juego_40_jugador2(self):
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es("40")
+
+
+    def test_tenis_puntuacion_15_15(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es("15-15")
+
+    def test_tenis_puntuacion_30_30(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es("30-30")
+
+    def test_tenis_puntuacion_40_40(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es("40-40")
+
+    def test_tenis_puntuacion_40_15(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es("40-15")
+
+    def la_puntuacion_es(self, tiene_que_ser):
+      self.assertEqual(self.tenis.puntuacion(), tiene_que_ser)
+
+
+
+
+
+
+REFACTOR:
+
+	TEST
+import unittest;
+
+from partido_tenis import Tenis
+
+class PartidoTennis(unittest.TestCase):
+    def setUp(self):
+        self.tenis = Tenis()
+
+    def test_tenis_puntuacion_juego_0(self):
+        self.la_puntuacion_es(0,0)
+
+    def test_tenis_puntuacion_juego_15_jugador1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es(15,0)
+
+    def test_tenis_puntuacion_juego_30_jugador1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es(30,0)
+
+    def test_tenis_puntuacion_juego_40_jugador1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es(40,0)
+
+
+
+    def test_tenis_puntuacion_juego_15_jugador2(self):
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(0,15)
+
+    def test_tenis_puntuacion_juego_30_jugador2(self):
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(0,30)
+
+    def test_tenis_puntuacion_juego_40_jugador2(self):
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(0,40)
+
+
+    def test_tenis_puntuacion_15_15(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(15,15)
+
+    def test_tenis_puntuacion_30_30(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(30,30)
+
+    def test_tenis_puntuacion_40_40(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(40,40)
+
+    def test_tenis_puntuacion_40_15(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(40,15)
+
+
+
+    def la_puntuacion_es(self, J1,J2):
+       self.assertEqual(self.tenis.puntuacionJ1(), J1) and self.assertEqual(self.tenis.puntuacionJ2(), J2)
+
+
+
+		CODIGO
+
+class Tenis(object):
+    def __init__(self):
+        self.la_puntuacion_jugador_uno_es = 0
+        self.la_puntuacion_jugador_dos_es = 0
+
+
+    def puntuacion_jugador_uno(self):
+            self.la_puntuacion_jugador_uno_es += 1
+
+
+    def puntuacion_jugador_dos(self):
+            self.la_puntuacion_jugador_dos_es += 1
+
+    def puntuacionJ1(self): # jugador 1
+        if self.la_puntuacion_jugador_uno_es == 1:
+            return 15
+        if self.la_puntuacion_jugador_uno_es == 2:
+            return 30
+        if self.la_puntuacion_jugador_uno_es == 3:
+            return 40
+        if self.la_puntuacion_jugador_uno_es == 5:
+            return "ADV"
+        if self.la_puntuacion_jugador_uno_es == (4 | 7):
+            return "W"
+        return 0
+
+    def puntuacionJ2(self): # jugador 2
+        if self.la_puntuacion_jugador_dos_es == 1:
+            return 15
+        if self.la_puntuacion_jugador_dos_es == 2:
+            return 30
+        if self.la_puntuacion_jugador_dos_es == 3:
+            return 40
+        if self.la_puntuacion_jugador_uno_es == 5:
+            return "ADV"
+        if self.la_puntuacion_jugador_dos_es == (4 | 7):
+            return "W"
+        return 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CODIGO
+class Tenis(object):
+    def __init__(self):
+        self.la_puntuacion_jugador_uno_es = 0
+        self.la_puntuacion_jugador_dos_es = 0
+
+    def puntuacion_jugador_uno(self):
+        if (self.la_puntuacion_jugador_uno_es == 5):
+            self.la_puntuacion_jugador_uno_es += 1
+        if (self.la_puntuacion_jugador_uno_es == 3 and self.la_puntuacion_jugador_dos_es == 3):
+            self.la_puntuacion_jugador_uno_es += 2
+        if (self.la_puntuacion_jugador_dos_es == 5):
+            self.la_puntuacion_jugador_dos_es -= 2 #volvemos a 40
+        if(self.la_puntuacion_jugador_uno_es !=5):
+            self.la_puntuacion_jugador_uno_es += 1
+
+
+    def puntuacion_jugador_dos(self):
+        if (self.la_puntuacion_jugador_dos_es == 3 and self.la_puntuacion_jugador_uno_es == 3):
+            self.la_puntuacion_jugador_dos_es += 2
+        if (self.la_puntuacion_jugador_uno_es == 5):
+            self.la_puntuacion_jugador_uno_es -= 2  #volvemos a 40
+        if (self.la_puntuacion_jugador_dos_es != 5):
+            self.la_puntuacion_jugador_dos_es += 1
+
+    def puntuacionJ1(self): # jugador 1
+        if self.la_puntuacion_jugador_uno_es == 1:
+            return 15
+        if self.la_puntuacion_jugador_uno_es == 2:
+            return 30
+        if self.la_puntuacion_jugador_uno_es == 3:
+            return 40
+        if self.la_puntuacion_jugador_uno_es == 5:
+            return "ADV"
+        if self.la_puntuacion_jugador_uno_es == (4 | 7):
+            return "W"
+        return 0
+    
+
+    def puntuacionJ2(self): # jugador 2
+        if self.la_puntuacion_jugador_dos_es == 1:
+            return 15
+        if self.la_puntuacion_jugador_dos_es == 2:
+            return 30
+        if self.la_puntuacion_jugador_dos_es == 3:
+            return 40
+        if self.la_puntuacion_jugador_uno_es == 5:
+            return "ADV"
+        if self.la_puntuacion_jugador_dos_es == (4 | 7):
+            return "W"
+        return 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+TEST
+import unittest;
+
+from partido_tenis import Tenis
+
+class PartidoTennis(unittest.TestCase):
+    def setUp(self):
+        self.tenis = Tenis()
+
+    def test_tenis_puntuacion_juego_0(self):
+        self.la_puntuacion_es(0,0)
+
+    def test_tenis_puntuacion_juego_15_jugador1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es(15,0)
+
+    def test_tenis_puntuacion_juego_30_jugador1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es(30,0)
+
+    def test_tenis_puntuacion_juego_40_jugador1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es(40,0)
+
+
+
+    def test_tenis_puntuacion_juego_15_jugador2(self):
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(0,15)
+
+    def test_tenis_puntuacion_juego_30_jugador2(self):
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(0,30)
+
+    def test_tenis_puntuacion_juego_40_jugador2(self):
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(0,40)
+
+
+    def test_tenis_puntuacion_15_15(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(15,15)
+
+    def test_tenis_puntuacion_30_30(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(30,30)
+
+    def test_tenis_puntuacion_40_40(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(40,40)
+
+    def test_tenis_puntuacion_40_15(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(40,15)
+
+    def test_tenis_puntuacion_ADV_J1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es("ADV", 40)
+
+    def test_tenis_puntuacion_Deuce_despues_de_ADVJ1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(40, 40)
+
+    def test_tenis_puntuacion_ADV_despues_de_DEUCE(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.la_puntuacion_es(40, "ADV")
+
+    def test_tenis_puntuacion_W_15(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es("W",15)
+
+    def test_tenis_puntuacion_ADV_J1(self):
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_uno()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_dos()
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es("ADV", 40)
+        self.tenis.puntuacion_jugador_uno()
+        self.la_puntuacion_es("W",40)
+
+
+    def la_puntuacion_es(self, J1,J2):
+       self.assertEqual(self.tenis.puntuacionJ1(), J1) and self.assertEqual(self.tenis.puntuacionJ2(), J2)
+	
