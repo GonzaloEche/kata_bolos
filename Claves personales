@@ -1,3 +1,4 @@
 Usuario: g.echevarria5
 Correo electrónico:	g.echevarria5@usp.ceu.es
 N.I.A:	107074
+git config --global http.sslVerify false
